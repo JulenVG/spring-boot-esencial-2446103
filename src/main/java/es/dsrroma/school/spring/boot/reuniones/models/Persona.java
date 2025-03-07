@@ -9,7 +9,6 @@ public class Persona {
     }
 
     public Persona(long id, String nombre, String apellidos) {
-        super();
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
