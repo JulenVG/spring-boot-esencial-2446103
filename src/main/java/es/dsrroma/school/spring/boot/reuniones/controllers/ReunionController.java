@@ -1,5 +1,6 @@
 package es.dsrroma.school.spring.boot.reuniones.controllers;
 
+import es.dsrroma.school.spring.boot.reuniones.models.Persona;
 import es.dsrroma.school.spring.boot.reuniones.models.Reunion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,11 @@ public class ReunionController {
 
     static {
         for (int i = 0; i < 5; i++) {
-            reuniones.add(new Reunion(i, "Reunión " + i, ZonedDateTime.now().plusDays(i)));
+            Reunion reunion = new Reunion(i, "Reunion " + i, ZonedDateTime.now().plusDays(i));
+            for (int j = 0; j < i; j++) {
+                reunion.addAsistente(new Persona(i+j, "Nombre " + i + j, "Apellido " + i + j));
+            }
+            reuniones.add(reunion);
         }
     }
 
