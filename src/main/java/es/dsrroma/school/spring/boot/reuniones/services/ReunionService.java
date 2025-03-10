@@ -1,5 +1,6 @@
 package es.dsrroma.school.spring.boot.reuniones.services;
 
+import es.dsrroma.school.spring.boot.reuniones.data.ReunionRepository;
 import es.dsrroma.school.spring.boot.reuniones.models.Persona;
 import es.dsrroma.school.spring.boot.reuniones.models.Reunion;
 import org.springframework.stereotype.Service;
@@ -10,19 +11,14 @@ import java.util.List;
 
 @Service
 public class ReunionService {
-    private static final List<Reunion> reuniones = new ArrayList<>();
 
-    static {
-        for (int i = 0; i < 5; i++) {
-            Reunion reunion = new Reunion(i, "Reunion " + i, ZonedDateTime.now().plusDays(i));
-            for (int j = 0; j < i; j++) {
-                reunion.addAsistente(new Persona(i+j, "Nombre " + i + j, "Apellido " + i + j));
-            }
-            reuniones.add(reunion);
-        }
+    private final ReunionRepository reunionRepository;
+
+    public ReunionService(ReunionRepository reunionRepository) {
+        this.reunionRepository = reunionRepository;
     }
 
-    public static List<Reunion> getAllReuniones() {
-        return reuniones;
+    public List<Reunion> getAllReuniones() {
+        return reunionRepository.findAll();
     }
 }

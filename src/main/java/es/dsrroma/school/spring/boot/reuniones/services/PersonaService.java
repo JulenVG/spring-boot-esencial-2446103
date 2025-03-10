@@ -1,5 +1,6 @@
 package es.dsrroma.school.spring.boot.reuniones.services;
 
+import es.dsrroma.school.spring.boot.reuniones.data.PersonaRepository;
 import es.dsrroma.school.spring.boot.reuniones.models.Persona;
 import org.springframework.stereotype.Service;
 
@@ -8,16 +9,14 @@ import java.util.List;
 
 @Service
 public class PersonaService {
-    private static final List<Persona> personas = new ArrayList<>();
 
-    static {
-        for (int i = 0; i < 5; i++) {
-            Persona persona = new Persona(i, "Nombre " + i, "Apellido " + i);
-            personas.add(persona);
-        }
+    private final PersonaRepository personaRepository;
+
+    public PersonaService(PersonaRepository personaRepository) {
+        this.personaRepository = personaRepository;
     }
 
-    public static List<Persona> getAllPersonas() {
-        return personas;
+    public List<Persona> getAllPersonas() {
+        return personaRepository.findAll();
     }
 }
